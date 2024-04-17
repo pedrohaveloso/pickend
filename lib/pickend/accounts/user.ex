@@ -3,7 +3,7 @@ defmodule Pickend.Accounts.User do
 
   import Ecto.Changeset
 
-  @derive {Jason.Encoder, only: [:full_name, :document, :email, :money, :type]}
+  @derive {Jason.Encoder, only: [:id, :full_name, :document, :email, :money, :type]}
 
   schema "users" do
     field(:full_name, :string)
