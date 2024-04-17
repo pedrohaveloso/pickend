@@ -4,9 +4,9 @@ defmodule PickendWeb.Router do
   alias PickendWeb.UserController
   alias PickendWeb.TransferController
 
-  post("/user", do: UserController.create(conn))
+  post("/users", do: UserController.create(conn))
 
-  post("/transfer", do: TransferController.transfer(conn))
+  post("/transfers", do: TransferController.transfer(conn))
 
   match("/", do: send_resp(conn, 404, "Not found"))
 end
