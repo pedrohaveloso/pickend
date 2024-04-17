@@ -6,6 +6,7 @@ defmodule Pickend.Repo.Migrations.CreateSessionTable do
       add(:id, :binary_id, primary_key: true)
 
       add(:active?, :boolean)
+      add(:ip, :string)
 
       add(:user, references("users", type: :binary_id))
 
