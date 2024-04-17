@@ -9,7 +9,7 @@ defmodule PickendWeb.UserController do
         create(conn, body)
 
       {:error, reason} ->
-        send_json_resp(conn, 400, %{reason: reason})
+        send_json_resp(conn, 400, %{"reason" => reason})
     end
   end
 
@@ -24,20 +24,13 @@ defmodule PickendWeb.UserController do
         {200, struct}
       else
         %Accounts.User{} ->
-          {404, %{reason: "User e-mail/document already exists."}}
+          {404, %{"reason" => "user e-mail/document already exists"}}
 
         {:error, changeset} ->
           {404,
            %{
-             reason: "Invalid data.",
-             errors:
-               Ecto.Changeset.traverse_errors(changeset, fn {msg, opts} ->
-                 Regex.replace(~r"%{(\w+)}", msg, fn _, key ->
-                   opts
-                   |> Keyword.get(String.to_existing_atom(key), key)
-                   |> to_string()
-                 end)
-               end)
+             "reason" => "invalid data",
+             "errors" => show_errors(changeset)
            }}
       end
 

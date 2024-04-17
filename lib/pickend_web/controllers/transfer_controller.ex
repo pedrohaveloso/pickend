@@ -1,6 +1,6 @@
 defmodule PickendWeb.TransferController do
   use PickendWeb, :controller
 
-  def create(conn) do
+  def create(_conn) do
   end
 end
