@@ -22,10 +22,10 @@ defmodule PickendWeb do
           {:ok, body, conn}
         else
           {:more, _, _} ->
-            {:error, "Too much data to read."}
+            {:error, "too much data to read"}
 
           _ ->
-            {:error, "Invalid body."}
+            {:error, "invalid body"}
         end
       end
 
@@ -35,6 +35,16 @@ defmodule PickendWeb do
         else
           send_resp(conn, 500, "")
         end
+      end
+
+      def show_errors(changeset) do
+        Ecto.Changeset.traverse_errors(changeset, fn {msg, opts} ->
+          Regex.replace(~r"%{(\w+)}", msg, fn _, key ->
+            opts
+            |> Keyword.get(String.to_existing_atom(key), key)
+            |> to_string()
+          end)
+        end)
       end
     end
   end
