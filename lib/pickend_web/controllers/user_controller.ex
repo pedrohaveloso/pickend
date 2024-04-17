@@ -3,7 +3,17 @@ defmodule PickendWeb.UserController do
 
   alias Pickend.Accounts
 
-  def create(conn) when {:ok, body} = read_json_body(conn) do
+  def create(conn) do
+    case read_json_body(conn) do
+      {:ok, body, _conn} ->
+        create(conn, body)
+
+      {:error, reason} ->
+        send_json_resp(conn, 400, %{reason: reason})
+    end
+  end
+
+  defp create(conn, body) do
     email = if is_nil(body["email"]), do: "", else: body["email"]
     document = if is_nil(body["document"]), do: "", else: body["document"]
 
@@ -32,9 +42,5 @@ defmodule PickendWeb.UserController do
       end
 
     send_json_resp(conn, status, body)
-  end
-
-  def create(conn) when {:error, reason} = read_json_body(conn) do
-    send_json_resp(conn, 400, %{reason: reason})
   end
 end
