@@ -1,4 +1,4 @@
-defmodule PickendWeb.TransferController do
+defmodule PickendWeb.SessionController do
   use PickendWeb, :controller
 
   def create(conn) do

@@ -1,4 +1,4 @@
-defmodule Pickend.Repo.Migrations.CreateTransferTable do
+defmodule Pickend.Repo.Migrations.CreateTransfersTable do
   use Ecto.Migration
 
   def change() do

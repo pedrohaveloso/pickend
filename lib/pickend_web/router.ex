@@ -1,12 +1,13 @@
 defmodule PickendWeb.Router do
   use PickendWeb, :router
 
-  alias PickendWeb.UserController
-  alias PickendWeb.TransferController
+  alias PickendWeb.{SessionController, UserController, TransferController}
 
   post("/users", do: UserController.create(conn))
 
-  post("/transfers", do: TransferController.transfer(conn))
+  post("/sessions", do: SessionController.create(conn))
+
+  post("/transfers", do: TransferController.create(conn))
 
   match(_, do: send_resp(conn, 404, ""))
 end
