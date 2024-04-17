@@ -8,5 +8,5 @@ defmodule PickendWeb.Router do
 
   post("/transfers", do: TransferController.transfer(conn))
 
-  match("/", do: send_resp(conn, 404, "Not found"))
+  match(_, do: send_resp(conn, 404, ""))
 end
