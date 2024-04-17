@@ -1,2 +1,28 @@
 defmodule Pickend.Accounts do
+  alias Pickend.Repo
+  alias Pickend.Accounts.User
+
+  def get_user(id: id) do
+    Repo.get(User, id)
+  end
+
+  def get_user(email: email) do
+    Repo.get_by(User, email: email)
+  end
+
+  def get_user(document: document) do
+    Repo.get_by(User, document: document)
+  end
+
+  def create_user(params \\ %{}) do
+    params = Map.put(params, "password", password_hashing(params["password"]))
+
+    %User{}
+    |> User.changeset(params)
+    |> Repo.insert()
+  end
+
+  defp password_hashing(password) do
+    Argon2.hash_pwd_salt(password)
+  end
 end
