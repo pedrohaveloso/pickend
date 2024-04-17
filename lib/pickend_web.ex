@@ -17,17 +17,24 @@ defmodule PickendWeb do
       import Plug.Conn
 
       def read_json_body(conn) do
-        case read_body(conn) do
-          {:ok, body, conn} ->
-            {:ok, Jason.decode!(body), conn}
+        with {:ok, body, conn} <- read_body(conn),
+             {:ok, body} <- Jason.decode(body) do
+          {:ok, body, conn}
+        else
+          {:more, _, _} ->
+            {:error, "Too much data to read."}
 
           _ ->
-            {:error, "Incorrect body."}
+            {:error, "Invalid body."}
         end
       end
 
       def send_json_resp(conn, status, body) do
-        send_resp(conn, status, Jason.encode!(body))
+        if {:ok, encoded} = Jason.encode(body) do
+          send_resp(conn, status, encoded)
+        else
+          send_resp(conn, 500, "")
+        end
       end
     end
   end
