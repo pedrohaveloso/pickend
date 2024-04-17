@@ -1,6 +1,6 @@
 defmodule Pickend.Accounts do
   alias Pickend.Repo
-  alias Pickend.Accounts.User
+  alias Pickend.Accounts.{User, Session}
 
   def get_user(id: id) do
     Repo.get(User, id)
@@ -24,5 +24,11 @@ defmodule Pickend.Accounts do
 
   defp password_hashing(password) do
     Argon2.hash_pwd_salt(password)
+  end
+
+  def create_session(params \\ %{}) do
+    %Session{}
+    |> Session.changeset(params)
+    |> Repo.insert()
   end
 end
