@@ -22,7 +22,7 @@ defmodule PickendWeb do
             {:ok, Jason.decode!(body)}
 
           _ ->
-            {:error}
+            {:error, "Incorrect body."}
         end
       end
 
