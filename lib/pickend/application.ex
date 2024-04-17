@@ -4,7 +4,8 @@ defmodule Pickend.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      {Bandit, plug: PickendWeb.Router}
+      {Bandit, plug: PickendWeb.Router},
+      Pickend.Repo
     ]
 
     opts = [strategy: :one_for_one, name: Pickend.Supervisor]
