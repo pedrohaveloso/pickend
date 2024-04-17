@@ -18,8 +18,8 @@ defmodule PickendWeb do
 
       def read_json_body(conn) do
         case read_body(conn) do
-          {:ok, body, _conn} ->
-            {:ok, Jason.decode!(body)}
+          {:ok, body, conn} ->
+            {:ok, Jason.decode!(body), conn}
 
           _ ->
             {:error, "Incorrect body."}
