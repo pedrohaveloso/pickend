@@ -3,15 +3,15 @@ defmodule Pickend.Accounts.User do
 
   import Ecto.Changeset
 
-  @primary_key {:id, :binary_id, autogenerate: true}
+  @derive {Jason.Encoder, only: [:full_name, :document, :email, :money, :type]}
 
   schema "users" do
     field(:full_name, :string)
     field(:document, :string)
     field(:email, :string)
     field(:password, :string, redact: true)
-    field(:money, Ecto.Enum, values: [common: 1, merchant: 2])
-    field(:type, :integer, default: 1)
+    field(:money, :integer)
+    field(:type, Ecto.Enum, values: [common: 1, merchant: 2])
 
     timestamps()
   end
