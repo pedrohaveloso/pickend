@@ -24,3 +24,6 @@ pickend-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+# VSCode ElixirLS extension.
+/.elixir_ls/

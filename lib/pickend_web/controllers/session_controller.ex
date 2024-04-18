@@ -14,9 +14,8 @@ defmodule PickendWeb.SessionController do
   end
 
   defp create(conn, body) do
-    user = if is_nil(body["user"]), do: "", else: body["user"]
-
-    with _ <- Accounts.get_user(id: user),
+    with user <- body["user"],
+         _ <- Accounts.get_user(id: user),
          {:ok, struct} <- Accounts.create_session(body) do
       send_json_resp(conn, 200, struct)
     else

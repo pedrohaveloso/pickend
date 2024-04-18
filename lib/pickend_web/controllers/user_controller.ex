@@ -14,15 +14,17 @@ defmodule PickendWeb.UserController do
   end
 
   defp create(conn, body) do
-    email = if is_nil(body["email"]), do: "", else: body["email"]
-    document = if is_nil(body["document"]), do: "", else: body["document"]
-
     {status, body} =
-      with nil <- Accounts.get_user(email: email),
+      with email <- body["email"],
+           document <- body["document"],
+           nil <- Accounts.get_user(email: email),
            nil <- Accounts.get_user(document: document),
            {:ok, struct} <- Accounts.create_user(body) do
         {200, struct}
       else
+        nil ->
+          {404, %{"reason" => 'invalid e-mail/document'}}
+
         %Accounts.User{} ->
           {404, %{"reason" => "user e-mail/document already exists"}}
 
