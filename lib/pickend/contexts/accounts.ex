@@ -22,6 +22,20 @@ defmodule Pickend.Accounts do
     |> Repo.insert()
   end
 
+  def update_user_money(id, money, :add) do
+    user = get_user(id: id)
+
+    Ecto.Changeset.change(user, money: user.money + money)
+    |> Repo.update()
+  end
+
+  def update_user_money(id, money, :remove) do
+    user = get_user(id: id)
+
+    Ecto.Changeset.change(user, money: user.money - money)
+    |> Repo.update()
+  end
+
   defp password_hashing(password) do
     Argon2.hash_pwd_salt(password)
   end
