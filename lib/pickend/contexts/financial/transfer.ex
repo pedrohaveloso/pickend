@@ -8,8 +8,8 @@ defmodule Pickend.Financial.Transfer do
   schema "transfers" do
     field(:amount, :integer)
 
-    field(:payer, :binary_id)
-    field(:payee, :binary_id)
+    field(:payer, Ecto.UUID)
+    field(:payee, Ecto.UUID)
 
     timestamps()
   end

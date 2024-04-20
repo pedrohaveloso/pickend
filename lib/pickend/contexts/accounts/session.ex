@@ -8,7 +8,7 @@ defmodule Pickend.Accounts.Session do
   schema "sessions" do
     field(:active?, :boolean, default: true)
     field(:ip, :string)
-    field(:user, :binary_id)
+    field(:user, Ecto.UUID)
 
     timestamps()
   end
