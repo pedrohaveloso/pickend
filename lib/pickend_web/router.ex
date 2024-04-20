@@ -6,6 +6,7 @@ defmodule PickendWeb.Router do
   post("/users", do: UserController.create(conn))
 
   post("/sessions", do: SessionController.create(conn))
+  patch("/sessions/:id", do: SessionController.disable(conn))
 
   post("/transfers", do: TransferController.create(conn))
 

@@ -29,4 +29,14 @@ defmodule PickendWeb.SessionController do
         })
     end
   end
+
+  def disable(conn) do
+    case Accounts.update_session_active(conn.params["id"], false) do
+      {:ok, struct} ->
+        send_json_resp(conn, 200, struct)
+
+      _ ->
+        send_json_resp(conn, 400, %{"reason" => "invalid session"})
+    end
+  end
 end
