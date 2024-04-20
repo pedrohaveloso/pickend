@@ -1,4 +1,5 @@
 defmodule Pickend.Accounts do
+  alias Pickend.TestBinaryId
   alias Pickend.Repo
   alias Pickend.Accounts.{User, Session}
 
@@ -40,9 +41,25 @@ defmodule Pickend.Accounts do
     Argon2.hash_pwd_salt(password)
   end
 
+  def get_session(id: id) do
+    Repo.get(Session, id)
+  end
+
   def create_session(params \\ %{}) do
     %Session{}
     |> Session.changeset(params)
     |> Repo.insert()
+  end
+
+  def update_session_active(id, active?) do
+    with true <- TestBinaryId.valid?(id),
+         session <- get_session(id: id),
+         changeset <- Ecto.Changeset.change(session, active?: active?),
+         {:ok, struct} <- Repo.update(changeset) do
+      {:ok, struct}
+    else
+      _ ->
+        {:error}
+    end
   end
 end
