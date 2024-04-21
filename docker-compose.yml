@@ -1,7 +1,7 @@
 services:
   app:
-    stdin_open: true 
-    tty: true      
+    stdin_open: true
+    tty: true
     build:
       context: .
     command: /bin/sh docker_dev_start.sh
@@ -11,6 +11,8 @@ services:
       - db
     links:
       - db
+    volumes:
+      - .:/app
   db:
     image: postgres
     environment:
