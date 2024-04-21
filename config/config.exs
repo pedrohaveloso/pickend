@@ -4,6 +4,7 @@ config :pickend, Pickend.Repo,
   database: "pickend_repo",
   username: "postgres",
   password: "root",
-  hostname: "localhost"
+  hostname: "db",
+  port: "5432"
 
 config :pickend, ecto_repos: [Pickend.Repo]

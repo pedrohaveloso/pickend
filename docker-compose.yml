@@ -1,0 +1,20 @@
+services:
+  app:
+    stdin_open: true 
+    tty: true      
+    build:
+      context: .
+    command: /bin/sh docker_dev_start.sh
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+    links:
+      - db
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - "6000:6000"
