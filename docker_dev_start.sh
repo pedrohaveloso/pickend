@@ -1,4 +1,4 @@
 mix ecto.drop
 mix ecto.create
 mix ecto.migrate
-exec iex
+exec bash
